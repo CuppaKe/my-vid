@@ -1,0 +1,24 @@
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+.header-container {
+    display: flex;
+    margin: 0 2rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-log-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-nickname {
+    display: flex;
+    margin-right: 0.5rem;
+    align-items: center;
+
+    mat-icon {
+        margin-right: 0.2rem;
+    }
+}

@@ -5,5 +5,5 @@ export interface UserEntity {
 }
 
 export class User implements UserEntity {
-    constructor(public id, public firstName, public lastName) {}
+    constructor(public id: number, public firstName: string, public lastName: string) {}
 }

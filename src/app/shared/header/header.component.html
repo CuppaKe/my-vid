@@ -1,1 +1,10 @@
-<p>header works!</p>
+<div class="header-container">
+    <app-logo></app-logo>
+    <div class="user-log-container">
+        <p class="user-nickname"><mat-icon>account_circle</mat-icon>User</p>
+        <button mat-flat-button color="primary" (click)="onLogoff()">
+            <mat-icon>arrow_right_alt</mat-icon>
+            Log off
+        </button>
+    </div>
+</div>

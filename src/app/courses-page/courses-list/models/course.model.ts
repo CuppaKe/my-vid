@@ -8,10 +8,10 @@ export interface Course {
 
 export class CourseItem implements Course {
     constructor(
-        public id,
-        public title,
-        public creationDate,
-        public duration,
-        public description
+        public id: number,
+        public title: string,
+        public creationDate: string,
+        public duration: number,
+        public description: string
     ) {}
 }

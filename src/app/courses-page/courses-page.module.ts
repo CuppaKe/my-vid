@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { CoursesPageComponent } from "./courses-page.component";
-import { CourseItemComponent } from "./course-item/course-item.component";
+import { CourseItemComponent } from "./courses-list/course-item/course-item.component";
 import { CoursesPanelComponent } from "./courses-panel/courses-panel.component";
 import { CoursesListComponent } from "./courses-list/courses-list.component";
 
