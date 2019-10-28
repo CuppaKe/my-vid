@@ -1,2 +1,5 @@
-<p>Inside list</p>
-<app-course-item></app-course-item>
+<app-course-item
+    *ngFor="let course of courses"
+    [course]="course"
+></app-course-item>
+<button mat-button color="primary">Load more</button>

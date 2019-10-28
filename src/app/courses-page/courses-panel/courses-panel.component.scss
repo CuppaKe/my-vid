@@ -1,0 +1,17 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-container {
+    margin: 0 2rem;
+}
+
+input {
+    margin-right: 0.5rem;
+}
+
+.add-course-container {
+    margin-left: auto;
+    margin-right: 2rem;
+}

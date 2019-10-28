@@ -1,1 +1,13 @@
-<p>courses-panel works!</p>
+<div class="search-container">
+    <input [(ngModel)]="inputSearch" size="68" placeholder="Enter course" />
+    <button mat-flat-button color="primary" (click)="onSearch()">
+        <mat-icon>search</mat-icon>
+        Search
+    </button>
+</div>
+<div class="add-course-container">
+    <button mat-flat-button color="primary" (click)="onSearch()">
+        <mat-icon>add</mat-icon>
+        Add course
+    </button>
+</div>
