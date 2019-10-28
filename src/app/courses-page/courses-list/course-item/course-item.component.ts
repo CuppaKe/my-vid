@@ -7,11 +7,9 @@ import { CourseItem } from "../models/course.model";
     styleUrls: ["./course-item.component.scss"]
 })
 export class CourseItemComponent implements OnInit {
-    @Input() course: CourseItem;
+    @Input() public course: CourseItem;
 
-    constructor() {}
-
-    ngOnInit() {
+    public ngOnInit(): void {
         console.log(this.course);
     }
 }

@@ -5,12 +5,8 @@ import { Component, OnInit } from "@angular/core";
     templateUrl: "./courses-panel.component.html",
     styleUrls: ["./courses-panel.component.scss"]
 })
-export class CoursesPanelComponent implements OnInit {
+export class CoursesPanelComponent  {
     public inputSearch: string;
-
-    constructor() {}
-
-    ngOnInit() {}
 
     public onSearch(): void {
         console.log(this.inputSearch);

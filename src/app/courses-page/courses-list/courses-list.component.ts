@@ -10,9 +10,8 @@ import { courses } from "./constants/constants";
 })
 export class CoursesListComponent implements OnInit {
     public courses: CourseItem[];
-    constructor() {}
 
-    ngOnInit() {
+    public ngOnInit(): void {
         this.courses = courses;
     }
 }
