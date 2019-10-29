@@ -1,8 +1,13 @@
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 
+:host {
+    background: grey;
+}
+
 .header-container {
     display: flex;
     margin: 0 2rem;
+    height: 3rem;
     align-items: center;
     justify-content: space-between;
 }

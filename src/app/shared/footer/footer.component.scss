@@ -1,7 +1,11 @@
 :host {
     display: flex;
     justify-content: flex-end;
-    padding: 0 2rem;
     height: 3rem;
-    background: purple;
+    background: grey;
+    align-items: center;
+}
+
+p {
+    margin: 0 2rem;
 }

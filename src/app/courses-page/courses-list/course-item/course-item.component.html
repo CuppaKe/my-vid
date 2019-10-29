@@ -14,6 +14,6 @@
     </mat-card-content>
     <mat-card-actions [align]="'end'">
         <button mat-button>Edit</button>
-        <button mat-button>Delete</button>
+        <button mat-button (click)="onRemove(course.id)">Delete</button>
     </mat-card-actions>
 </mat-card>

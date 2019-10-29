@@ -14,4 +14,12 @@ export class CoursesListComponent implements OnInit {
     public ngOnInit(): void {
         this.courses = courses;
     }
+
+    public onDeleteCourse(courseId: number): void {
+        console.log(courseId);
+    }
+
+    public onLoad(): void {
+        console.log("load more");
+    }
 }
