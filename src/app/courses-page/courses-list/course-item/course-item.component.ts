@@ -3,6 +3,9 @@ import { Observable } from "rxjs";
 
 import { CourseItem } from "../models/course.model";
 
+/**
+ * Component with course details
+ */
 @Component({
     selector: "app-course-item",
     templateUrl: "./course-item.component.html",
@@ -11,8 +14,14 @@ import { CourseItem } from "../models/course.model";
 export class CourseItemComponent implements OnInit, OnChanges {
     private deleteCourseBF: EventEmitter<number> = new EventEmitter<number>();
 
+    /**
+     * Course item
+     */
     @Input() public course: CourseItem;
 
+    /**
+     * Emit delete event
+     */
     @Output() public deleteCourse: Observable<number> = this.deleteCourseBF.asObservable();
 
     public ngOnInit(): void {
@@ -23,6 +32,9 @@ export class CourseItemComponent implements OnInit, OnChanges {
         console.log("first");
     }
 
+    /**
+     * Remove course
+     */
     public onRemove(courseId: number): void {
         this.deleteCourseBF.emit(courseId);
     }
