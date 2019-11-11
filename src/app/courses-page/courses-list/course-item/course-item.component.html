@@ -1,10 +1,10 @@
-<mat-card>
+<mat-card [appCreationDate]="course.creationDate" [ngClass]="{ 'top-rated': course.topRated }">
     <mat-card-header>
         <div mat-card-avatar class="header-image"></div>
-        <mat-card-title>{{ course.title }}</mat-card-title>
+        <mat-card-title>{{ course.title | uppercase }}<mat-icon *ngIf="course.topRated">star</mat-icon></mat-card-title>
         <mat-card-subtitle>
-            <p><mat-icon>access_time</mat-icon>{{ course.duration }}</p>
-            <p><mat-icon>event</mat-icon>{{ course.creationDate }}</p>
+            <p><mat-icon>access_time</mat-icon>{{ course.duration | durationFormat }}</p>
+            <p><mat-icon>event</mat-icon>{{ course.creationDate | date }}</p>
         </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>

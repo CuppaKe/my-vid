@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Output, EventEmitter } from "@angular/core";
+import { Observable } from "rxjs";
 
 /**
  * Control panel component
@@ -9,6 +10,10 @@ import { Component } from "@angular/core";
     styleUrls: ["./courses-panel.component.scss"]
 })
 export class CoursesPanelComponent {
+    private searchBF: EventEmitter<string> = new EventEmitter<string>();
+
+    @Output() public search: Observable<string> = this.searchBF.asObservable();
+
     /**
      * Input search request
      */
@@ -18,6 +23,6 @@ export class CoursesPanelComponent {
      * Searches course
      */
     public onSearch(): void {
-        console.log(this.inputSearch);
+        this.searchBF.emit(this.inputSearch);
     }
 }

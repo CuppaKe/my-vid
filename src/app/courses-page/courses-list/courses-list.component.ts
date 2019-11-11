@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from "@angular/core";
 
 import { CourseItem } from "./models/course.model";
 import { courses } from "./constants/constants";
@@ -11,14 +11,27 @@ import { courses } from "./constants/constants";
     templateUrl: "./courses-list.component.html",
     styleUrls: ["./courses-list.component.scss"]
 })
-export class CoursesListComponent implements OnInit {
+export class CoursesListComponent implements OnInit, OnChanges {
     /**
      * Courses
      */
     public courses: CourseItem[];
 
+    /**
+     * Filter for courses
+     */
+    @Input() public filter: string;
+
     public ngOnInit(): void {
         this.courses = courses;
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (changes.filter && !changes.filter.firstChange) {
+            this.courses = courses.filter((course) =>
+                course.title.toLocaleLowerCase().includes(this.filter.toLocaleLowerCase())
+            );
+        }
     }
 
     /**

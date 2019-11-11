@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
@@ -9,16 +9,12 @@ import { CoursesPageComponent } from "./courses-page.component";
 import { CourseItemComponent } from "./courses-list/course-item/course-item.component";
 import { CoursesPanelComponent } from "./courses-panel/courses-panel.component";
 import { CoursesListComponent } from "./courses-list/courses-list.component";
-import {SharedModule} from "../shared/shared.module";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
-    declarations: [
-        CoursesPageComponent,
-        CoursesPanelComponent,
-        CoursesListComponent,
-        CourseItemComponent
-    ],
+    declarations: [CoursesPageComponent, CoursesPanelComponent, CoursesListComponent, CourseItemComponent],
     imports: [CommonModule, FormsModule, MatIconModule, MatButtonModule, MatCardModule, SharedModule],
-    exports: [CoursesPageComponent]
+    exports: [CoursesPageComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CoursesPageModule {}

@@ -8,4 +8,10 @@ import { Component } from "@angular/core";
     templateUrl: "./courses-page.component.html",
     styleUrls: ["./courses-page.component.scss"]
 })
-export class CoursesPageComponent {}
+export class CoursesPageComponent {
+    public searchText: string;
+
+    public onSearch(data: string): void {
+        this.searchText = data;
+    }
+}
