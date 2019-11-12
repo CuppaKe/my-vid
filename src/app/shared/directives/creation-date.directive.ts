@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, Input, OnInit } from "@angular/core";
+import { Directive, ElementRef, Renderer2, Input, OnInit, OnChanges } from "@angular/core";
 import { DateTime, Duration } from "luxon";
 
 /**
@@ -7,7 +7,7 @@ import { DateTime, Duration } from "luxon";
 @Directive({
     selector: "[appCreationDate]"
 })
-export class CreationDateDirective implements OnInit {
+export class CreationDateDirective implements OnInit, OnChanges {
     /**
      * Creation date
      */
@@ -16,6 +16,10 @@ export class CreationDateDirective implements OnInit {
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
     public ngOnInit(): void {
+        this.setBorder();
+    }
+
+    public ngOnChanges(): void {
         this.setBorder();
     }
 
