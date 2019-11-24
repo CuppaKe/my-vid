@@ -1,4 +1,4 @@
-import { CourseItem } from "../models/course.model";
+import { CourseItem } from "../courses-page/courses-list/models/course.model";
 
 export const courses: CourseItem[] = [
     {

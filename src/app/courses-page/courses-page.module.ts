@@ -14,7 +14,6 @@ import { SharedModule } from "../shared/shared.module";
 @NgModule({
     declarations: [CoursesPageComponent, CoursesPanelComponent, CoursesListComponent, CourseItemComponent],
     imports: [CommonModule, FormsModule, MatIconModule, MatButtonModule, MatCardModule, SharedModule],
-    exports: [CoursesPageComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    exports: [CoursesPageComponent]
 })
 export class CoursesPageModule {}

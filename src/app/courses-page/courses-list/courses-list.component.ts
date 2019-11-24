@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { CoursesService } from "./../../core/courses.service";
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectorRef } from "@angular/core";
 
 import { CourseItem } from "./models/course.model";
-import { courses } from "./constants/constants";
+import { courses } from "../../core/constants";
 
 /**
  * Component for displaying courses
@@ -22,8 +23,10 @@ export class CoursesListComponent implements OnInit, OnChanges {
      */
     @Input() public filter: string;
 
+    constructor(private coursesService: CoursesService, private cd: ChangeDetectorRef) {}
+
     public ngOnInit(): void {
-        this.courses = courses;
+        this.courses = this.coursesService.getList();
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -38,7 +41,11 @@ export class CoursesListComponent implements OnInit, OnChanges {
      * Deletes course
      */
     public onDeleteCourse(courseId: number): void {
-        console.log(courseId);
+        // TODO replace confirm with material dialog
+        if (confirm("Do you want to delete this course")) {
+            this.coursesService.removeCourse(courseId);
+        }
+        this.courses = this.coursesService.getList();
     }
 
     /**

@@ -1,3 +1,4 @@
+import { AuthorizationService } from "./../../core/authorization.service";
 import { Component } from "@angular/core";
 
 /**
@@ -9,10 +10,13 @@ import { Component } from "@angular/core";
     styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent {
+    constructor(private authService: AuthorizationService) {}
+
     /**
      * Loggs off user
      */
     public onLogoff(): void {
+        this.authService.logout();
         console.log("log off user");
     }
 }
