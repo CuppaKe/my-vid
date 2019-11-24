@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Optional } from "@angular/core";
+import { Component, OnInit, DoCheck } from "@angular/core";
 import { AuthorizationService } from "../core/authorization.service";
 
 /**
@@ -9,7 +9,7 @@ import { AuthorizationService } from "../core/authorization.service";
     templateUrl: "./courses-page.component.html",
     styleUrls: ["./courses-page.component.scss"]
 })
-export class CoursesPageComponent implements OnInit, OnChanges {
+export class CoursesPageComponent implements OnInit, DoCheck {
     public searchText: string;
 
     public isAuthorized: boolean;
@@ -24,15 +24,13 @@ export class CoursesPageComponent implements OnInit, OnChanges {
         console.log("init", this.user, this.isAuthorized);
     }
 
-    public ngOnChanges(): void {
+    public ngDoCheck(): void {
         this.isAuthorized = this.authService.getIsAuthenticated();
         this.user = this.authService.getUserInfo();
-        console.log("change", this.user, this.isAuthorized);
     }
 
     public onSearch(data: string): void {
         this.searchText = data;
-        console.log("test", this.user, this.isAuthorized);
     }
 
     public onLogout(): void {
