@@ -1,5 +1,5 @@
-import { AuthorizationService } from "./../../core/authorization.service";
-import { Component } from "@angular/core";
+import { Observable } from "rxjs";
+import { Component, EventEmitter, Output, Input } from "@angular/core";
 
 /**
  * Header component
@@ -10,13 +10,18 @@ import { Component } from "@angular/core";
     styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent {
-    constructor(private authService: AuthorizationService) {}
+    private logoutBF: EventEmitter<void> = new EventEmitter<void>();
+
+    @Input() public user: string;
+
+    @Input() public isAthorized: boolean;
+
+    @Output() public logout: Observable<void> = this.logoutBF.asObservable();
 
     /**
      * Loggs off user
      */
     public onLogoff(): void {
-        this.authService.logout();
-        console.log("log off user");
+        this.logoutBF.emit();
     }
 }

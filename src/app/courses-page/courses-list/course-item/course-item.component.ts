@@ -11,7 +11,7 @@ import { CourseItem } from "../models/course.model";
     templateUrl: "./course-item.component.html",
     styleUrls: ["./course-item.component.scss"]
 })
-export class CourseItemComponent implements OnInit, OnChanges {
+export class CourseItemComponent {
     private deleteCourseBF: EventEmitter<number> = new EventEmitter<number>();
 
     /**
@@ -23,14 +23,6 @@ export class CourseItemComponent implements OnInit, OnChanges {
      * Emit delete event
      */
     @Output() public deleteCourse: Observable<number> = this.deleteCourseBF.asObservable();
-
-    public ngOnInit(): void {
-        console.log(this.course, "second");
-    }
-
-    public ngOnChanges(changes: SimpleChanges): void {
-        console.log("first");
-    }
 
     /**
      * Remove course

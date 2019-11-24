@@ -6,20 +6,21 @@ import { User } from "../login-page/models/user.model";
     providedIn: "root"
 })
 export class AuthorizationService {
-    private isAuthenticated: boolean = false;
+    private isAuthenticated: boolean;
 
     public login(user: User): void {
-        localStorage.setItem("user", JSON.stringify(user));
         this.isAuthenticated = true;
+        localStorage.setItem("user", JSON.stringify(user));
     }
 
     public logout(): void {
-        localStorage.removeItem("user");
         this.isAuthenticated = false;
+        localStorage.removeItem("user");
     }
 
-    public getUserInfo(): User {
-        return JSON.parse(localStorage.getItem("user"));
+    public getUserInfo(): string {
+        const user: User = JSON.parse(localStorage.getItem("user"));
+        return user && user.login;
     }
 
     public getIsAuthenticated(): boolean {
