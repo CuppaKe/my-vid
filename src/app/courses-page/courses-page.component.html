@@ -1,4 +1,4 @@
-<app-header (logout)="onLogout()" [user]="user" [isAthorized]="isAuthorized"></app-header>
+<app-header (logout)="onLogout()" [user]="user$ | async" [isAthorized]="isAuthorized$ | async"></app-header>
 
 <app-courses-panel (search)="onSearch($event)"></app-courses-panel>
 <app-courses-list [filter]="searchText"></app-courses-list>
