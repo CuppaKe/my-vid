@@ -1,8 +1,10 @@
-import { CoursesService } from "./../../core/courses.service";
-import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { Router } from "@angular/router";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
-import { CourseItem } from "./models/course.model";
-import { courses } from "../../core/constants";
+import { Course } from "./models/course.model";
+import { CoursesService } from "./../../core/courses.service";
 
 /**
  * Component for displaying courses
@@ -16,23 +18,27 @@ export class CoursesListComponent implements OnInit, OnChanges {
     /**
      * Courses
      */
-    public courses: CourseItem[];
+    public courses$: Observable<Course[]>;
 
     /**
      * Filter for courses
      */
     @Input() public filter: string;
 
-    constructor(private coursesService: CoursesService, private cd: ChangeDetectorRef) {}
+    constructor(private coursesService: CoursesService, private router: Router) {}
 
     public ngOnInit(): void {
-        this.courses = this.coursesService.getList();
+        this.courses$ = this.coursesService.getList();
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.filter && !changes.filter.firstChange) {
-            this.courses = courses.filter((course) =>
-                course.title.toLocaleLowerCase().includes(this.filter.toLocaleLowerCase())
+            this.courses$ = this.courses$.pipe(
+                map((courses) =>
+                    courses.filter((course) =>
+                        course.title.toLocaleLowerCase().includes(this.filter.toLocaleLowerCase())
+                    )
+                )
             );
         }
     }
@@ -45,7 +51,10 @@ export class CoursesListComponent implements OnInit, OnChanges {
         if (confirm("Do you want to delete this course")) {
             this.coursesService.removeCourse(courseId);
         }
-        this.courses = this.coursesService.getList();
+    }
+
+    public onEditCourse(courseId: number): void {
+        this.router.navigate([`/edit-course`, courseId, { data: courseId }]);
     }
 
     /**

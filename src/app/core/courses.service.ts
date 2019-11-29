@@ -1,3 +1,4 @@
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { Injectable } from "@angular/core";
 
 import { courses } from "./constants";
@@ -10,28 +11,35 @@ export class CoursesService {
     /**
      * List of course
      */
-    private courses: Course[];
+    private coursesBF: BehaviorSubject<Course[]> = new BehaviorSubject(courses);
 
-    constructor() {
-        this.courses = courses;
-    }
-
-    public getList(): Course[] {
-        return this.courses;
+    public getList(): Observable<Course[]> {
+        return this.coursesBF.asObservable();
     }
 
     public createCourse(item: Course): void {
-        this.courses.push(item);
+        this.coursesBF.next(this.getLastList().concat({ ...item, id: this.setIndex() }));
     }
 
-    public getCourseById(id: number): Course {
-        return this.courses.find((item) => item.id === id);
+    public getCourseById(id: number): Observable<Course> {
+        return of(this.getLastList().find((item) => item.id === id));
     }
 
-    public updateCourse(changedItem: Course): void {}
+    public updateCourse(changedItem: Course): void {
+        this.coursesBF.next(
+            this.getLastList().map((oldCourse: Course) => (oldCourse.id === changedItem.id ? changedItem : oldCourse))
+        );
+    }
 
     public removeCourse(id: number): void {
-        this.courses = this.courses.filter((item) => item.id !== id);
-        console.log(id, this.courses);
+        this.coursesBF.next(this.getLastList().filter((item) => item.id !== id));
+    }
+
+    private getLastList(): Course[] {
+        return this.coursesBF.value;
+    }
+
+    private setIndex(): number {
+        return Math.max(...this.getLastList().map((course) => course.id)) + 1;
     }
 }

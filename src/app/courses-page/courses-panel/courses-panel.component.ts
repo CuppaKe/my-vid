@@ -11,8 +11,11 @@ import { Observable } from "rxjs";
 })
 export class CoursesPanelComponent {
     private searchBF: EventEmitter<string> = new EventEmitter<string>();
+    private addBF: EventEmitter<void> = new EventEmitter<void>();
 
     @Output() public search: Observable<string> = this.searchBF.asObservable();
+
+    @Output() public add: Observable<void> = this.addBF.asObservable();
 
     /**
      * Input search request
@@ -24,5 +27,9 @@ export class CoursesPanelComponent {
      */
     public onSearch(): void {
         this.searchBF.emit(this.inputSearch);
+    }
+
+    public addCourse(): void {
+        this.addBF.emit();
     }
 }

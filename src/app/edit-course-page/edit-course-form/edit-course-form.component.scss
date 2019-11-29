@@ -1,0 +1,31 @@
+form {
+    display: flex;
+    flex-direction: column;
+    width: 60rem;
+    padding: 1rem;
+    border: solid gray;
+    border-radius: 1rem;
+}
+
+.duration {
+    display: flex;
+    align-items: center;
+
+    mat-form-field {
+        margin-right: 2rem;
+    }
+
+    p {
+        font-size: 0.8rem;
+        font-weight: 200;
+    }
+}
+
+.form-button-container {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+        margin-right: 1rem;
+    }
+}

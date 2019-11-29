@@ -25,8 +25,8 @@ export class DurationFormatPipe implements PipeTransform {
             let hrs: number = dur.hours;
             let min: number = dur.minutes;
 
-            const hoursText: string = hrs === 0 ? "" : hrs + "h";
-            const minutesText: string = min === 0 ? "" : min + "min";
+            const hoursText: string = hrs === 0 ? "" : `${hrs} h`;
+            const minutesText: string = min === 0 ? "" : `${min} min`;
 
             return `${hoursText} ${minutesText}`.trim();
         }

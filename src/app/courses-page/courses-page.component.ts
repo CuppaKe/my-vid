@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
 import { AuthorizationService } from "../core/authorization.service";
 
@@ -11,26 +11,16 @@ import { AuthorizationService } from "../core/authorization.service";
     templateUrl: "./courses-page.component.html",
     styleUrls: ["./courses-page.component.scss"]
 })
-export class CoursesPageComponent implements OnInit {
+export class CoursesPageComponent {
     public searchText: string;
 
-    public isAuthorized$: Observable<boolean>;
-
-    public user$: Observable<string>;
-
-    constructor(private authService: AuthorizationService) {}
-
-    public ngOnInit(): void {
-        this.isAuthorized$ = this.authService.getIsAuthenticated();
-        this.user$ = this.authService.getUserInfo();
-    }
+    constructor(private authService: AuthorizationService, private router: Router) {}
 
     public onSearch(data: string): void {
         this.searchText = data;
     }
 
-    public onLogout(): void {
-        this.authService.logout();
-        console.log("log off user");
+    public onAddCourse(): void {
+        this.router.navigate(["/add-new-course"]);
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges, OnChanges } from "@angular/core";
+import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { CourseItem } from "../models/course.model";
@@ -9,10 +9,12 @@ import { CourseItem } from "../models/course.model";
 @Component({
     selector: "app-course-item",
     templateUrl: "./course-item.component.html",
-    styleUrls: ["./course-item.component.scss"]
+    styleUrls: ["./course-item.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseItemComponent {
     private deleteCourseBF: EventEmitter<number> = new EventEmitter<number>();
+    private editCourseBF: EventEmitter<number> = new EventEmitter<number>();
 
     /**
      * Course item
@@ -24,10 +26,16 @@ export class CourseItemComponent {
      */
     @Output() public deleteCourse: Observable<number> = this.deleteCourseBF.asObservable();
 
+    @Output() public editCourse: Observable<number> = this.editCourseBF.asObservable();
+
     /**
      * Remove course
      */
     public onRemove(courseId: number): void {
         this.deleteCourseBF.emit(courseId);
+    }
+
+    public onEdit(courseId: number): void {
+        this.editCourseBF.emit(courseId);
     }
 }

@@ -1,3 +1,7 @@
-<!-- <app-courses-page></app-courses-page> -->
-<app-login-page></app-login-page>
-<router-outlet></router-outlet>
+<app-header (logout)="onLogout()" [user]="user$ | async" [isAthorized]="isAuthorized$ | async"></app-header>
+
+<div class="content">
+    <router-outlet></router-outlet>
+</div>
+
+<app-footer class="footer"></app-footer>

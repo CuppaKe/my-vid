@@ -1,0 +1,3 @@
+<h2>Edit/Add course</h2>
+
+<app-edit-course-form [course]="course$ | async" (update)="onEdit($event)" (back)="onBack()"></app-edit-course-form>
