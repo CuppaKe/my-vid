@@ -16,6 +16,8 @@ export class HeaderComponent {
 
     @Input() public isAthorized: boolean;
 
+    @Input() public link: string;
+
     @Output() public logout: Observable<void> = this.logoutBF.asObservable();
 
     /**

@@ -1,8 +1,6 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { AuthorizationService } from "../core/authorization.service";
-
 /**
  * Course page component
  */
@@ -14,7 +12,7 @@ import { AuthorizationService } from "../core/authorization.service";
 export class CoursesPageComponent {
     public searchText: string;
 
-    constructor(private authService: AuthorizationService, private router: Router) {}
+    constructor(private router: Router) {}
 
     public onSearch(data: string): void {
         this.searchText = data;

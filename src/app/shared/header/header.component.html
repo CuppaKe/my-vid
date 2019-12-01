@@ -8,3 +8,6 @@
         </button>
     </div>
 </div>
+<div class="bread-crumbs" *ngIf="link">
+    <a [routerLink]="['/courses-page']">Courses{{ link ? "/" : "" }}{{ link }}</a>
+</div>

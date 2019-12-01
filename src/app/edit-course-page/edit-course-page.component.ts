@@ -23,7 +23,6 @@ export class EditCoursePageComponent implements OnInit {
     }
 
     public onEdit(course: Course): void {
-        console.log(course);
         // if course has id we edit it else add as new one
         course.id ? this.coursesService.updateCourse(course) : this.coursesService.createCourse(course);
 

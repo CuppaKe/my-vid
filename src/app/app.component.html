@@ -1,4 +1,9 @@
-<app-header (logout)="onLogout()" [user]="user$ | async" [isAthorized]="isAuthorized$ | async"></app-header>
+<app-header
+    (logout)="onLogout()"
+    [user]="user$ | async"
+    [isAthorized]="isAuthorized$ | async"
+    [link]="breadCrumbsLink$ | async"
+></app-header>
 
 <div class="content">
     <router-outlet></router-outlet>
