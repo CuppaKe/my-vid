@@ -26,6 +26,9 @@ export class CourseItemComponent {
      */
     @Output() public deleteCourse: Observable<number> = this.deleteCourseBF.asObservable();
 
+    /**
+     * Emit edit course event
+     */
     @Output() public editCourse: Observable<number> = this.editCourseBF.asObservable();
 
     /**
@@ -35,6 +38,9 @@ export class CourseItemComponent {
         this.deleteCourseBF.emit(courseId);
     }
 
+    /**
+     * Edit course
+     */
     public onEdit(courseId: number): void {
         this.editCourseBF.emit(courseId);
     }

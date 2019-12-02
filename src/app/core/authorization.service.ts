@@ -8,7 +8,6 @@ import { User } from "../login-page/models/user.model";
 })
 export class AuthorizationService {
     private isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-
     private nickName$: Subject<string> = new Subject();
 
     public login(user: User): void {

@@ -8,9 +8,6 @@ import { Course } from "../courses-page/courses-list/models/course.model";
     providedIn: "root"
 })
 export class CoursesService {
-    /**
-     * List of course
-     */
     private coursesBF: BehaviorSubject<Course[]> = new BehaviorSubject(courses);
 
     public getList(): Observable<Course[]> {

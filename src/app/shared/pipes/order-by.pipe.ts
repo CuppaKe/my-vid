@@ -13,7 +13,10 @@ export class OrderByPipe implements PipeTransform {
                 .diff(DateTime.fromISO(b.creationDate))
                 .as("seconds");
 
-            return diff === 0 ? 0 : diff > 0 ? -1 : 1;
+            if (diff === 0) {
+                return 0;
+            }
+            return diff > 0 ? -1 : 1;
         });
     }
 }

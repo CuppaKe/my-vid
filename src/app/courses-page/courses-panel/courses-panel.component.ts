@@ -13,8 +13,14 @@ export class CoursesPanelComponent {
     private searchBF: EventEmitter<string> = new EventEmitter<string>();
     private addBF: EventEmitter<void> = new EventEmitter<void>();
 
+    /**
+     * Emit search request
+     */
     @Output() public search: Observable<string> = this.searchBF.asObservable();
 
+    /**
+     * Emit add new course request
+     */
     @Output() public add: Observable<void> = this.addBF.asObservable();
 
     /**
@@ -29,6 +35,9 @@ export class CoursesPanelComponent {
         this.searchBF.emit(this.inputSearch);
     }
 
+    /**
+     * Adds new course
+     */
     public addCourse(): void {
         this.addBF.emit();
     }

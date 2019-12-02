@@ -10,14 +10,22 @@ import { Router } from "@angular/router";
     styleUrls: ["./courses-page.component.scss"]
 })
 export class CoursesPageComponent {
+    /**
+     * Search filter string
+     */
     public searchText: string;
 
     constructor(private router: Router) {}
 
+    /**
+     * Searches course
+     */
     public onSearch(data: string): void {
         this.searchText = data;
     }
-
+    /**
+     * Add new course
+     */
     public onAddCourse(): void {
         this.router.navigate(["/add-new-course"]);
     }
