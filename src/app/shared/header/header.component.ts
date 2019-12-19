@@ -1,5 +1,5 @@
-import {Observable} from "rxjs";
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from "@angular/core";
+import { Observable } from "rxjs";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 
 /**
  * Header component

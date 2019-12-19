@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
 
 import { Course } from "./models/course.model";
 import { CoursesService } from "./../../core/courses.service";
@@ -28,18 +27,13 @@ export class CoursesListComponent implements OnInit, OnChanges {
     constructor(private coursesService: CoursesService, private router: Router) {}
 
     public ngOnInit(): void {
-        this.courses$ = this.coursesService.getList();
+        this.courses$ = this.coursesService.coursesBF;
+        this.coursesService.getList(5);
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.filter && !changes.filter.firstChange) {
-            this.courses$ = this.courses$.pipe(
-                map((courses) =>
-                    courses.filter((course) =>
-                        course.title.toLocaleLowerCase().includes(this.filter.toLocaleLowerCase())
-                    )
-                )
-            );
+            this.coursesService.search(this.filter);
         }
     }
 
@@ -53,6 +47,9 @@ export class CoursesListComponent implements OnInit, OnChanges {
         }
     }
 
+    /**
+     * Edits course
+     */
     public onEditCourse(courseId: number): void {
         this.router.navigate([`/edit-course`, courseId, { data: courseId }]);
     }
@@ -60,7 +57,7 @@ export class CoursesListComponent implements OnInit, OnChanges {
     /**
      * Loads more courses
      */
-    public onLoad(): void {
-        console.log("load more");
+    public onLoad(count: number): void {
+        this.coursesService.getList(count + 5);
     }
 }

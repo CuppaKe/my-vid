@@ -1,5 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 
 import { SharedModule } from "./shared/shared.module";
@@ -12,6 +13,7 @@ import { EditCoursePageModule } from "./edit-course-page/edit-course-page.module
 @NgModule({
     declarations: [AppComponent],
     imports: [
+        HttpClientModule,
         BrowserModule,
         AppRoutingModule,
         CoursesPageModule,
@@ -20,7 +22,6 @@ import { EditCoursePageModule } from "./edit-course-page/edit-course-page.module
         LoginPageModule,
         EditCoursePageModule
     ],
-    providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

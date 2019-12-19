@@ -18,6 +18,7 @@ export class LoginPageComponent implements OnInit {
      * Form for login
      */
     public loginForm: FormGroup;
+
     constructor(private formBuilder: FormBuilder, private authService: AuthorizationService, private router: Router) {}
 
     public ngOnInit(): void {
@@ -39,6 +40,5 @@ export class LoginPageComponent implements OnInit {
         this.authService.login(user);
         this.loginForm.reset();
         this.router.navigate(["/courses-page"]);
-        console.log("logged in successfully");
     }
 }

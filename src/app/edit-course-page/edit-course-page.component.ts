@@ -33,7 +33,13 @@ export class EditCoursePageComponent implements OnInit {
      */
     public onEdit(course: Course): void {
         // if course has id we edit it else add as new one
-        course.id ? this.coursesService.updateCourse(course) : this.coursesService.createCourse(course);
+        course.id
+            ? this.coursesService.updateCourse(course)
+            : this.coursesService.createCourse({
+                  ...course,
+                  id: Math.random(),
+                  authors: { id: Math.random(), name: "Petya" }
+              });
 
         this.router.navigate(["/courses-page"]);
     }

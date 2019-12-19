@@ -1,7 +1,7 @@
 import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from "@angular/core";
 import { Observable } from "rxjs";
 
-import { CourseItem } from "../models/course.model";
+import { Course } from "../models/course.model";
 
 /**
  * Component with course details
@@ -19,7 +19,7 @@ export class CourseItemComponent {
     /**
      * Course item
      */
-    @Input() public course: CourseItem;
+    @Input() public course: Course;
 
     /**
      * Emit delete event
