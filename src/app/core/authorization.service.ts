@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, BehaviorSubject, Subject, of } from "rxjs";
-import { first, tap, catchError, map } from "rxjs/operators";
+import { tap, catchError, switchMap } from "rxjs/operators";
 
 import { User } from "../login-page/models/user.model";
-import { LoginResponse } from "./models/http-models";
+import { LoginResponse, UserInfoResponse } from "./models/http-models";
 
 @Injectable({
     providedIn: "root"
@@ -23,16 +23,20 @@ export class AuthorizationService {
         this.http
             .post("http://localhost:3004/auth/login/", user)
             .pipe(
-                first(),
-                map(({ token }: LoginResponse) => token),
-                tap((token) => {
+                tap(({ token }: LoginResponse) => {
                     if (!!token) {
-                        localStorage.setItem("user", JSON.stringify(user));
                         localStorage.setItem("token", JSON.stringify(token));
-                        this.setNickname();
                         this.isAuthenticated$.next(true);
                     }
                 }),
+                switchMap((token) =>
+                    this.http.post("http://localhost:3004/auth/userinfo/", token).pipe(
+                        tap(({ name }: UserInfoResponse) => {
+                            localStorage.setItem("user", JSON.stringify(name));
+                            this.setNickname();
+                        })
+                    )
+                ),
                 catchError(() => {
                     this.isAuthenticated$.next(false);
                     return of("");
@@ -64,7 +68,7 @@ export class AuthorizationService {
     }
 
     private setNickname(): void {
-        const user: User = JSON.parse(localStorage.getItem("user"));
-        this.nickName$.next(user && user.login);
+        const user: { [key: string]: string } = JSON.parse(localStorage.getItem("user"));
+        this.nickName$.next(`${user.first} ${user.last}`);
     }
 }

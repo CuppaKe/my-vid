@@ -14,3 +14,14 @@ export interface CourseResponse {
     };
     isTopRated: boolean;
 }
+
+export interface UserInfoResponse {
+    id: number;
+    token: string;
+    name: {
+        first: string;
+        last: string;
+    };
+    login: string;
+    password: string;
+}
