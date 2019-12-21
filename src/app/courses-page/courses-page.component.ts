@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 
+import { CoursesService } from "./../core/courses.service";
+
 /**
  * Course page component
  */
@@ -10,18 +12,13 @@ import { Router } from "@angular/router";
     styleUrls: ["./courses-page.component.scss"]
 })
 export class CoursesPageComponent {
-    /**
-     * Search filter string
-     */
-    public searchText: string;
-
-    constructor(private router: Router) {}
+    constructor(private router: Router, private coursesService: CoursesService) {}
 
     /**
      * Searches course
      */
-    public onSearch(data: string): void {
-        this.searchText = data;
+    public onSearch(fragment: string): void {
+        this.coursesService.search(fragment);
     }
     /**
      * Add new course

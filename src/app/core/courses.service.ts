@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { map, first } from "rxjs/operators";
+import { map, first, distinctUntilChanged, debounceTime, switchMap, filter } from "rxjs/operators";
 import { BehaviorSubject, Observable, of } from "rxjs";
 
 import { courseResponsetoCourseMapper, CoursetoCourseResponse } from "./helpers/courses.mappers";
@@ -38,13 +38,19 @@ export class CoursesService {
      * @param textFragment - string - search text
      */
     public search(textFragment: string): void {
-        this.http
-            .get("http://localhost:3004/courses/", { params: { textFragment } })
+        of(textFragment)
             .pipe(
-                first(),
-                map((coursesResponse: CourseResponse[]) => coursesResponse.map(courseResponsetoCourseMapper))
+                debounceTime(1000),
+                filter((fragment) => fragment.length >= 3),
+                distinctUntilChanged(),
+                switchMap((event: string) =>
+                    this.http.get("http://localhost:3004/courses/", { params: { textFragment: event } }).pipe(
+                        first(),
+                        map((coursesResponse: CourseResponse[]) => coursesResponse.map(courseResponsetoCourseMapper))
+                    )
+                )
             )
-            .subscribe((courses) => this.coursesBF.next(courses));
+            .subscribe((courses: Course[]) => this.coursesBF.next(courses));
     }
 
     /**

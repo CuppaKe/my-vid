@@ -16,7 +16,7 @@ export class CoursesPanelComponent {
     /**
      * Emit search request
      */
-    @Output() public search: Observable<string> = this.searchBF.asObservable();
+    @Output() public search: Observable<String> = this.searchBF.asObservable();
 
     /**
      * Emit add new course request
@@ -24,15 +24,10 @@ export class CoursesPanelComponent {
     @Output() public add: Observable<void> = this.addBF.asObservable();
 
     /**
-     * Input search request
-     */
-    public inputSearch: string;
-
-    /**
      * Searches course
      */
-    public onSearch(): void {
-        this.searchBF.emit(this.inputSearch);
+    public onSearch(event: KeyboardEvent): void {
+        this.searchBF.emit((event.target as HTMLInputElement).value);
     }
 
     /**

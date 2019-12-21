@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 
@@ -13,28 +13,16 @@ import { CoursesService } from "./../../core/courses.service";
     templateUrl: "./courses-list.component.html",
     styleUrls: ["./courses-list.component.scss"]
 })
-export class CoursesListComponent implements OnInit, OnChanges {
+export class CoursesListComponent implements OnInit {
     /**
      * Courses
      */
     public courses$: Observable<Course[]>;
 
-    /**
-     * Filter for courses
-     */
-    @Input() public filter: string;
-
     constructor(private coursesService: CoursesService, private router: Router) {}
 
     public ngOnInit(): void {
         this.courses$ = this.coursesService.coursesBF;
-        this.coursesService.getList(5);
-    }
-
-    public ngOnChanges(changes: SimpleChanges): void {
-        if (changes.filter && !changes.filter.firstChange) {
-            this.coursesService.search(this.filter);
-        }
     }
 
     /**

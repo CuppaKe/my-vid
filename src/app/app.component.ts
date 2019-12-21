@@ -48,7 +48,6 @@ export class AppComponent implements OnInit {
     public onLogout(): void {
         this.authService.logout();
         this.router.navigate(["/login"]);
-        console.log("log off user");
     }
 
     private getBreadLink(): void {
