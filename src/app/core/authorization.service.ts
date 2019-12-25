@@ -1,74 +1,55 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable, BehaviorSubject, Subject, of } from "rxjs";
-import { tap, catchError, switchMap } from "rxjs/operators";
+import { Observable } from "rxjs";
+import { Store, createSelector } from "@ngrx/store";
 
 import { User } from "../login-page/models/user.model";
-import { LoginResponse, UserInfoResponse } from "./models/http-models";
+import { State, getAuthState } from "./../store/index";
+import * as AuthActions from "../store/auth/auth.actions";
+import { getIsAuthorized, getUserFullName, getToken } from "./../store/auth/auth.selectors";
 
 @Injectable({
     providedIn: "root"
 })
 export class AuthorizationService {
-    private isAuthenticated$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-    private nickName$: Subject<string> = new Subject();
+    public isAuthenticated$: Observable<boolean>;
+    public userFullName$: Observable<string>;
+    public token$: Observable<string>;
 
-    constructor(private http: HttpClient) {}
+    constructor(private store: Store<State>) {
+        this.isAuthenticated$ = this.store.select(
+            createSelector(
+                getAuthState,
+                getIsAuthorized
+            )
+        );
+
+        this.userFullName$ = this.store.select(
+            createSelector(
+                getAuthState,
+                getUserFullName
+            )
+        );
+
+        this.token$ = this.store.select(
+            createSelector(
+                getAuthState,
+                getToken
+            )
+        );
+    }
 
     /**
      * Login user
      * @param user - User - current user
      */
     public login(user: User): void {
-        this.http
-            .post("http://localhost:3004/auth/login/", user)
-            .pipe(
-                tap(({ token }: LoginResponse) => {
-                    if (!!token) {
-                        localStorage.setItem("token", JSON.stringify(token));
-                        this.isAuthenticated$.next(true);
-                    }
-                }),
-                switchMap((token) =>
-                    this.http.post("http://localhost:3004/auth/userinfo/", token).pipe(
-                        tap(({ name }: UserInfoResponse) => {
-                            localStorage.setItem("user", JSON.stringify(name));
-                            this.setNickname();
-                        })
-                    )
-                ),
-                catchError(() => {
-                    this.isAuthenticated$.next(false);
-                    return of("");
-                })
-            )
-            .subscribe();
+        this.store.dispatch(AuthActions.fetchAuthToken({ user }));
     }
 
     /**
      * Logout
      */
     public logout(): void {
-        this.isAuthenticated$.next(false);
-        localStorage.clear();
-    }
-
-    /**
-     * Return user info
-     */
-    public getUserInfo(): Observable<string> {
-        return this.nickName$.asObservable();
-    }
-
-    /**
-     * Returns whether user is authenticated
-     */
-    public getIsAuthenticated(): Observable<boolean> {
-        return this.isAuthenticated$.asObservable();
-    }
-
-    private setNickname(): void {
-        const user: { [key: string]: string } = JSON.parse(localStorage.getItem("user"));
-        this.nickName$.next(`${user.first} ${user.last}`);
+        this.store.dispatch(AuthActions.logOut());
     }
 }

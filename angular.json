@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "my-vid"
+  "defaultProject": "my-vid",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

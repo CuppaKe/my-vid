@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router, ParamMap, ActivatedRoute } from "@angular/router";
-import { switchMap } from "rxjs/operators";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
 
 import { CoursesService } from "./../core/courses.service";
@@ -23,9 +22,7 @@ export class EditCoursePageComponent implements OnInit {
     constructor(private coursesService: CoursesService, private router: Router, private route: ActivatedRoute) {}
 
     public ngOnInit(): void {
-        this.course$ = this.route.paramMap.pipe(
-            switchMap((params: ParamMap) => this.coursesService.getCourseById(+params.get("data")))
-        );
+        this.course$ = this.coursesService.editData$;
     }
 
     /**
@@ -34,11 +31,11 @@ export class EditCoursePageComponent implements OnInit {
     public onEdit(course: Course): void {
         // if course has id we edit it else add as new one
         course.id
-            ? this.coursesService.updateCourse(course)
+            ? this.coursesService.editCourse(course)
             : this.coursesService.createCourse({
                   ...course,
-                  id: Math.random(),
-                  authors: { id: Math.random(), name: "Petya" }
+                  id: Math.round(Math.random() * 1000),
+                  authors: { id: Math.round(Math.random() * 100), name: "Petya" }
               });
 
         this.router.navigate(["/courses-page"]);

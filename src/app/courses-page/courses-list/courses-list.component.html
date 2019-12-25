@@ -1,6 +1,6 @@
-<div class="courses-container">
+<div class="courses-container" *ngIf="courses$ | async as courses">
     <app-course-item
-        *ngFor="let course of courses$ | async | orderByDate as courses"
+        *ngFor="let course of courses | orderByDate"
         [course]="course"
         (deleteCourse)="onDeleteCourse($event)"
         (editCourse)="onEditCourse($event)"

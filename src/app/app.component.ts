@@ -37,8 +37,8 @@ export class AppComponent implements OnInit {
     ) {}
 
     public ngOnInit(): void {
-        this.isAuthorized$ = this.authService.getIsAuthenticated();
-        this.user$ = this.authService.getUserInfo();
+        this.isAuthorized$ = this.authService.isAuthenticated$;
+        this.user$ = this.authService.userFullName$;
         this.getBreadLink();
     }
 
@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
             distinctUntilChanged(),
             switchMap((events: NavigationEnd) => {
                 let id: number = events && +events.url.match(/\d+$/gm);
-                return id ? this.coursesService.getCourseById(id).pipe(map((course) => course.title)) : of("");
+                return id ? this.coursesService.editData$.pipe(map((course) => course.title)) : of("");
             })
         );
     }

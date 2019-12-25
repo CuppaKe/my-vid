@@ -22,7 +22,7 @@ export class CoursesListComponent implements OnInit {
     constructor(private coursesService: CoursesService, private router: Router) {}
 
     public ngOnInit(): void {
-        this.courses$ = this.coursesService.coursesBF;
+        this.courses$ = this.coursesService.courses$;
     }
 
     /**
@@ -39,7 +39,8 @@ export class CoursesListComponent implements OnInit {
      * Edits course
      */
     public onEditCourse(courseId: number): void {
-        this.router.navigate([`/edit-course`, courseId, { data: courseId }]);
+        this.router.navigate([`/edit-course`, courseId]);
+        this.coursesService.openEditCourse(courseId);
     }
 
     /**

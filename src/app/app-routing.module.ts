@@ -13,7 +13,7 @@ const routes: Routes = [
     { path: "edit-course/:id", canActivate: [AuthGuard], component: EditCoursePageComponent },
     { path: "login", component: LoginPageComponent },
     { path: "404", component: ComponentNotFoundComponent },
-    { path: "", redirectTo: "/courses-page", pathMatch: "full" },
+    { path: "", redirectTo: "/login", pathMatch: "full" },
     { path: "**", redirectTo: "/404" }
 ];
 
