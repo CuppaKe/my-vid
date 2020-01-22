@@ -1,0 +1,13 @@
+:host {
+    display: flex;
+    align-items: center;
+
+    mat-form-field {
+        margin-right: 2rem;
+    }
+
+    p {
+        font-size: 0.8rem;
+        font-weight: 200;
+    }
+}

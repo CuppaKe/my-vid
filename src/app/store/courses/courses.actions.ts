@@ -1,3 +1,4 @@
+import { AuthorResponse } from "./../../core/models/http-models";
 /* tslint:disable:typedef */
 import { createAction, props } from "@ngrx/store";
 
@@ -145,5 +146,30 @@ export const editCourseFail = createAction(
     "[Courses] EDIT_COURSE_FAIL",
     props<{
         message: string;
+    }>()
+);
+
+/**
+ * Fetch authors
+ */
+export const fetchAuthors = createAction("[Courses] FETCH_AUTHORS");
+
+/**
+ * Fetch authors succeed
+ */
+export const fetchAuthorsSuccess = createAction(
+    "[Courses] FETCH_AUTHORS_SUCCESS",
+    props<{
+        authors: AuthorResponse[];
+    }>()
+);
+
+/**
+ * Fetch authors failed
+ */
+export const fetchAuthorsFail = createAction(
+    "[Courses] FETCH_AUTHORS_FAIL",
+    props<{
+        authors: [];
     }>()
 );

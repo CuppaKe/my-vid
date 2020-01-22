@@ -1,0 +1,13 @@
+<mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>Duration</mat-label>
+    <input
+        matInput
+        type="text"
+        [formControl]="duration"
+        (change)="editDuration()"
+        (blur)="touch()"
+        [errorStateMatcher]="matcher"
+    />
+    <mat-error>Enter valid duration</mat-error>
+</mat-form-field>
+<p>({{ duration.value | durationFormat }})</p>

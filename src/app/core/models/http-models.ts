@@ -11,7 +11,8 @@ export interface CourseResponse {
     authors: {
         id: number;
         name: string;
-    };
+        lastName: string;
+    }[];
     isTopRated: boolean;
 }
 
@@ -24,4 +25,9 @@ export interface UserInfoResponse {
     };
     login: string;
     password: string;
+}
+
+export interface AuthorResponse {
+    id: string;
+    name: string;
 }

@@ -4,8 +4,9 @@ import { Observable } from "rxjs";
 
 import { Course } from "src/app/courses-page/courses-list/models/course.model";
 import * as CoursesActions from "../store/courses/courses.actions";
-import { getCourses, getDataToEdit } from "./../store/courses/courses.selectors";
+import { getCourses, getDataToEdit, getAuthors } from "./../store/courses/courses.selectors";
 import { State, getCoursesState } from "./../store/index";
+import { AuthorResponse } from "./models/http-models";
 
 /**
  * Courses service
@@ -24,6 +25,11 @@ export class CoursesService {
      */
     public editData$: Observable<Course>;
 
+    /**
+     * Authors list
+     */
+    public authors$: Observable<AuthorResponse[]>;
+
     constructor(private store: Store<State>) {
         this.courses$ = this.store.select(
             createSelector(
@@ -36,6 +42,13 @@ export class CoursesService {
             createSelector(
                 getCoursesState,
                 getDataToEdit
+            )
+        );
+
+        this.authors$ = this.store.select(
+            createSelector(
+                getCoursesState,
+                getAuthors
             )
         );
     }
@@ -71,6 +84,7 @@ export class CoursesService {
      */
     public openEditCourse(id: number): void {
         this.store.dispatch(CoursesActions.openEditCourse({ id }));
+        this.fetchAuthors();
     }
 
     /**
@@ -87,5 +101,12 @@ export class CoursesService {
      */
     public removeCourse(id: number): void {
         this.store.dispatch(CoursesActions.deleteCourse({ id }));
+    }
+
+    /**
+     * Fetches authors list
+     */
+    public fetchAuthors(): void {
+        this.store.dispatch(CoursesActions.fetchAuthors());
     }
 }

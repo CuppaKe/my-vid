@@ -1,4 +1,4 @@
-import { Course } from "src/app/courses-page/courses-list/models/course.model";
+import { Course, Author } from "src/app/courses-page/courses-list/models/course.model";
 import { CourseResponse } from "../models/http-models";
 
 export function courseResponsetoCourseMapper(cr: CourseResponse): Course {
@@ -13,7 +13,7 @@ export function courseResponsetoCourseMapper(cr: CourseResponse): Course {
     };
 }
 
-export function CoursetoCourseResponse(course: Course): CourseResponse {
+export function coursetoCourseResponse(course: Course): CourseResponse {
     return {
         id: course.id,
         name: course.title,
@@ -22,5 +22,15 @@ export function CoursetoCourseResponse(course: Course): CourseResponse {
         description: course.description,
         isTopRated: course.topRated,
         authors: course.authors
+    };
+}
+
+export function convertAuthors(authorName: string): Author {
+    const [name, lastName] = authorName.split(" ");
+
+    return {
+        id: Math.round(Math.random() * 100),
+        name: name,
+        lastName: lastName
     };
 }

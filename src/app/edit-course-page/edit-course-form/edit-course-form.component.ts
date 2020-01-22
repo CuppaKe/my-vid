@@ -1,8 +1,9 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {Observable} from "rxjs";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Observable } from "rxjs";
 
-import {Course} from "src/app/courses-page/courses-list/models/course.model";
+import { Course } from "src/app/courses-page/courses-list/models/course.model";
+import { AuthorResponse } from "./../../core/models/http-models";
 
 @Component({
     selector: "app-edit-course-form",
@@ -23,6 +24,11 @@ export class EditCourseFormComponent implements OnInit {
      * Course for editing
      */
     @Input() public course: Course;
+
+    /**
+     * Authors
+     */
+    @Input() public authors: AuthorResponse[];
 
     /**
      * Emit course to update update
@@ -57,11 +63,11 @@ export class EditCourseFormComponent implements OnInit {
 
     private createForm(): void {
         this.form = this.formBuilder.group({
-            title: [""],
-            description: [""],
-            date: [""],
+            title: ["", [Validators.required, Validators.maxLength(50)]],
+            description: ["", [Validators.required, Validators.maxLength(500)]],
+            creationDate: [""],
             duration: [""],
-            author: [""]
+            authors: [[]]
         });
     }
 
@@ -71,7 +77,8 @@ export class EditCourseFormComponent implements OnInit {
                 title: this.course.title,
                 description: this.course.description,
                 date: this.course.creationDate,
-                duration: this.course.duration
+                duration: this.course.duration,
+                authors: this.course.authors
             });
         }
     }

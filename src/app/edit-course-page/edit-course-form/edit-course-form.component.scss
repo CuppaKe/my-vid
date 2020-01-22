@@ -5,20 +5,7 @@ form {
     padding: 1rem;
     border: solid gray;
     border-radius: 1rem;
-}
-
-.duration {
-    display: flex;
-    align-items: center;
-
-    mat-form-field {
-        margin-right: 2rem;
-    }
-
-    p {
-        font-size: 0.8rem;
-        font-weight: 200;
-    }
+    background: gray;
 }
 
 .form-button-container {

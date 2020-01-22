@@ -1,0 +1,25 @@
+<mat-form-field appearance="outline" floatLabel="always">
+    <div class="authors-container">
+        <span class="author" *ngFor="let author of selected">
+            {{ author.name }}
+            <span class="remove-author" (click)="removeAuthor(author)">×</span>
+        </span>
+    </div>
+
+    <mat-label>Author</mat-label>
+    <span *ngIf="!selected.length && authorsControl.touched">Add author</span>
+    <input
+        matInput
+        placeholder="Choose author"
+        [matAutocomplete]="auto"
+        [formControl]="authorsControl"
+        (click)="touch()"
+        [errorStateMatcher]="matcher"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let state of authors" [value]="state.name" (click)="addAuthor(state)">
+            <span>{{ state.name }}</span>
+        </mat-option>
+    </mat-autocomplete>
+    <mat-error>Add at least one author</mat-error>
+</mat-form-field>

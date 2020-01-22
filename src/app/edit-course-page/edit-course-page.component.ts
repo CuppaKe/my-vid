@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 
 import { CoursesService } from "./../core/courses.service";
 import { Course } from "../courses-page/courses-list/models/course.model";
+import { AuthorResponse } from "./../core/models/http-models";
+import { convertAuthors } from "../core/helpers/courses.mappers";
 
 /**
  * Edit course component
@@ -19,10 +21,16 @@ export class EditCoursePageComponent implements OnInit {
      */
     public course$: Observable<Course>;
 
-    constructor(private coursesService: CoursesService, private router: Router, private route: ActivatedRoute) {}
+    /**
+     * Authors list
+     */
+    public authors$: Observable<AuthorResponse[]>;
+
+    constructor(private coursesService: CoursesService, private router: Router) {}
 
     public ngOnInit(): void {
         this.course$ = this.coursesService.editData$;
+        this.authors$ = this.coursesService.authors$;
     }
 
     /**
@@ -35,7 +43,7 @@ export class EditCoursePageComponent implements OnInit {
             : this.coursesService.createCourse({
                   ...course,
                   id: Math.round(Math.random() * 1000),
-                  authors: { id: Math.round(Math.random() * 100), name: "Petya" }
+                  authors: course.authors.map((author) => convertAuthors(author.name))
               });
 
         this.router.navigate(["/courses-page"]);

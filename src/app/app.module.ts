@@ -5,6 +5,8 @@ import { NgModule } from "@angular/core";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { EffectsModule } from "@ngrx/effects";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 import { SharedModule } from "./shared/shared.module";
 import { CoursesPageModule } from "./courses-page/courses-page.module";
@@ -30,6 +32,8 @@ import { AuthEffects } from "./store/auth/auth.effects";
         BrowserAnimationsModule,
         LoginPageModule,
         EditCoursePageModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
         StoreModule.forRoot(reducers, {
             runtimeChecks: {
                 strictStateImmutability: true,

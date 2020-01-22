@@ -24,6 +24,7 @@ export class CoursesPageComponent {
      * Add new course
      */
     public onAddCourse(): void {
+        this.coursesService.fetchAuthors();
         this.router.navigate(["/add-new-course"]);
     }
 }

@@ -7,7 +7,8 @@ import { map, switchMap, filter, distinctUntilChanged, debounceTime, catchError,
 
 import * as CoursesActions from "./courses.actions";
 import { CourseResponse } from "src/app/core/models/http-models";
-import { courseResponsetoCourseMapper, CoursetoCourseResponse } from "src/app/core/helpers/courses.mappers";
+import { courseResponsetoCourseMapper, coursetoCourseResponse } from "src/app/core/helpers/courses.mappers";
+import { AuthorResponse } from "./../../core/models/http-models";
 
 /**
  * Courses effects
@@ -39,12 +40,18 @@ export class CoursesEffects {
      */
     public editCourse$: Observable<Action>;
 
+    /**
+     * Fetch authors
+     */
+    public fetchAuthors$: Observable<Action>;
+
     constructor(private actions$: Actions, private http: HttpClient) {
         this.fetchCourses$ = createEffect(() => this.createFetchCoursesEffect());
         this.searchCourses$ = createEffect(() => this.createSearchCoursesEffect());
         this.createCourse$ = createEffect(() => this.createCreateCourseEffect());
         this.deleteCourse$ = createEffect(() => this.createDeleteCourseEffect());
         this.editCourse$ = createEffect(() => this.createEditCourseEffect());
+        this.fetchAuthors$ = createEffect(() => this.createfetchAuthorsEffect());
     }
 
     private createFetchCoursesEffect(): Observable<Action> {
@@ -87,7 +94,7 @@ export class CoursesEffects {
             ofType(CoursesActions.createCourse),
             map((action) => action.course),
             switchMap((course) =>
-                this.http.post("http://localhost:3004/courses/", CoursetoCourseResponse(course)).pipe(
+                this.http.post("http://localhost:3004/courses/", coursetoCourseResponse(course)).pipe(
                     map(() => CoursesActions.createCourseSuccess()),
                     catchError(() => of(CoursesActions.createCourseFail({ message: "create course failed" })))
                 )
@@ -115,7 +122,7 @@ export class CoursesEffects {
         return this.actions$.pipe(
             ofType(CoursesActions.editCourse),
             map((action) => action.course),
-            map((course) => CoursetoCourseResponse(course)),
+            map((course) => coursetoCourseResponse(course)),
             switchMap((course) =>
                 this.http.patch(`http://localhost:3004/courses/${course.id}`, course).pipe(
                     concatMap(() => [
@@ -123,6 +130,18 @@ export class CoursesEffects {
                         CoursesActions.fetchCourses({ request: { count: 5, start: 0 } })
                     ]),
                     catchError(() => of(CoursesActions.deleteCourseFail({ message: "edit course failed" })))
+                )
+            )
+        );
+    }
+
+    private createfetchAuthorsEffect(): Observable<Action> {
+        return this.actions$.pipe(
+            ofType(CoursesActions.fetchAuthors),
+            switchMap(() =>
+                this.http.get("http://localhost:3004/authors").pipe(
+                    map((response: AuthorResponse[]) => CoursesActions.fetchAuthorsSuccess({ authors: response })),
+                    catchError(() => of(CoursesActions.fetchAuthorsFail({ authors: [] })))
                 )
             )
         );

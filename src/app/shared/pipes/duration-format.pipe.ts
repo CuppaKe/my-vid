@@ -10,14 +10,15 @@ import { Duration } from "luxon";
     name: "durationFormat"
 })
 export class DurationFormatPipe implements PipeTransform {
-    public transform(duration: number): string {
-        if (!duration) {
+    public transform(duration: number | string): string {
+        const re: RegExp = new RegExp("^[0-9]+$");
+
+        if (!duration || !re.test(duration.toString())) {
             return "";
         } else {
             const dur: Duration = Duration.fromObject({
                 hours: 0,
-                minutes: 0,
-                seconds: duration
+                minutes: +duration
             })
                 .normalize()
                 .toObject();
