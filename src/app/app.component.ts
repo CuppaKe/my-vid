@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { Router, NavigationEnd } from "@angular/router";
 import { switchMap, map, filter, distinctUntilChanged } from "rxjs/operators";
+import { TranslateService } from "@ngx-translate/core";
 
 import { AuthorizationService } from "./core/authorization.service";
 import { CoursesService } from "./core/courses.service";
@@ -33,13 +34,15 @@ export class AppComponent implements OnInit {
     constructor(
         private authService: AuthorizationService,
         private router: Router,
-        private coursesService: CoursesService
+        private coursesService: CoursesService,
+        private translate: TranslateService
     ) {}
 
     public ngOnInit(): void {
         this.isAuthorized$ = this.authService.isAuthenticated$;
         this.user$ = this.authService.userFullName$;
         this.getBreadLink();
+        this.translate.setDefaultLang("en");
     }
 
     /**
@@ -48,6 +51,14 @@ export class AppComponent implements OnInit {
     public onLogout(): void {
         this.authService.logout();
         this.router.navigate(["/login"]);
+    }
+
+    /**
+     * Change language
+     * @param language - string - chosen language
+     */
+    public onSelect(language: string): void {
+        this.translate.use(language);
     }
 
     private getBreadLink(): void {

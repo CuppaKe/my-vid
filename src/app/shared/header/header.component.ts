@@ -12,6 +12,15 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 })
 export class HeaderComponent {
     private logoutBF: EventEmitter<void> = new EventEmitter<void>();
+    private languageSelectBF: EventEmitter<string> = new EventEmitter<string>();
+
+    /**
+     * Available languages
+     */
+    public languages: Array<{ [key: string]: string }> = [
+        { value: "en", context: "HEADER.EN" },
+        { value: "ru", context: "HEADER.RU" }
+    ];
 
     /**
      * User nickname
@@ -34,9 +43,22 @@ export class HeaderComponent {
     @Output() public logout: Observable<void> = this.logoutBF.asObservable();
 
     /**
+     * Emit language select event
+     */
+    @Output() public selectLanguage: Observable<string> = this.languageSelectBF.asObservable();
+
+    /**
      * On logoff
      */
     public onLogoff(): void {
         this.logoutBF.emit();
+    }
+
+    /**
+     * On language select
+     * @param language string - selected language
+     */
+    public onLanguageSelect(language: string): void {
+        this.languageSelectBF.emit(language);
     }
 }

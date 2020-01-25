@@ -1,10 +1,10 @@
 <div class="search-container">
-    <input size="70" placeholder="Enter course" (keyup)="onSearch($event)" />
+    <input size="70" placeholder="{{ 'COURSES.PANEL.PLACEHOLDER' | translate }}" (keyup)="onSearch($event)" />
 </div>
 
 <div class="add-course-container">
     <button mat-flat-button color="primary" (click)="addCourse()">
         <mat-icon>add</mat-icon>
-        Add course
+        {{ "COURSES.PANEL.ADD" | translate }}
     </button>
 </div>

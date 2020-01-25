@@ -1,0 +1,18 @@
+{
+    "COURSES": {
+        "LIST": {
+            "NO_DATA": "No data, feel free to add new course",
+            "LOAD": "Load more"
+        },
+        "PANEL": {
+            "PLACEHOLDER": "Enter course",
+            "ADD": "Add course"
+        }
+    },
+    "HEADER": {
+        "LANGUAGE_SELECT": "Choose language",
+        "EN": "EN",
+        "RU": "RU",
+        "LOGOFF": "Log off"
+    }
+}

@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { TranslateModule } from "@ngx-translate/core";
 
 import { CoursesPageComponent } from "./courses-page.component";
 import { CourseItemComponent } from "./courses-list/course-item/course-item.component";
@@ -13,7 +14,7 @@ import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
     declarations: [CoursesPageComponent, CoursesPanelComponent, CoursesListComponent, CourseItemComponent],
-    imports: [CommonModule, FormsModule, MatIconModule, MatButtonModule, MatCardModule, SharedModule],
+    imports: [CommonModule, FormsModule, MatIconModule, MatButtonModule, MatCardModule, SharedModule, TranslateModule],
     exports: [CoursesPageComponent]
 })
 export class CoursesPageModule {}

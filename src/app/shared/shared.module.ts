@@ -4,6 +4,8 @@ import { CommonModule } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatSelectModule } from "@angular/material/select";
+import { TranslateModule } from "@ngx-translate/core";
 
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
@@ -25,7 +27,15 @@ import { LoaderComponent } from "./loader/loader.component";
         ComponentNotFoundComponent,
         LoaderComponent
     ],
-    imports: [CommonModule, MatIconModule, MatButtonModule, RouterModule, MatProgressSpinnerModule],
+    imports: [
+        CommonModule,
+        MatIconModule,
+        MatButtonModule,
+        RouterModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        TranslateModule
+    ],
 
     exports: [HeaderComponent, FooterComponent, CreationDateDirective, DurationFormatPipe, OrderByPipe, LoaderComponent]
 })

@@ -1,12 +1,14 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { EffectsModule } from "@ngrx/effects";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import { SharedModule } from "./shared/shared.module";
 import { CoursesPageModule } from "./courses-page/courses-page.module";
@@ -41,7 +43,14 @@ import { AuthEffects } from "./store/auth/auth.effects";
             }
         }),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
-        EffectsModule.forRoot([CoursesEffects, AuthEffects])
+        EffectsModule.forRoot([CoursesEffects, AuthEffects]),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
     ],
     providers: [
         {
@@ -58,3 +67,8 @@ import { AuthEffects } from "./store/auth/auth.effects";
     bootstrap: [AppComponent]
 })
 export class AppModule {}
+
+// tslint:disable-next-line: typedef
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}

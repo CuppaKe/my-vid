@@ -6,7 +6,7 @@
         (editCourse)="onEditCourse($event)"
     ></app-course-item>
 </div>
-<div *ngIf="!(courses$ | async)?.length">No data, feel free to add new course</div>
+<div *ngIf="!(courses$ | async)?.length">{{ "COURSES.LIST.NO_DATA" | translate }}</div>
 <ng-container *ngIf="courses$ | async as courses">
-    <button mat-button color="primary" (click)="onLoad(courses.length)">Load more</button>
+    <button mat-button color="primary" (click)="onLoad(courses.length)">{{ "COURSES.LIST.LOAD" | translate }}</button>
 </ng-container>

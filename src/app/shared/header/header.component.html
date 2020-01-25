@@ -1,13 +1,23 @@
 <div class="header-container">
     <app-logo></app-logo>
+    <div class="language-selector">
+        <mat-label>{{ "HEADER.LANGUAGE_SELECT" | translate }}</mat-label>
+        <mat-select [value]="'en'" (selectionChange)="onLanguageSelect($event.value)">
+            <mat-option *ngFor="let language of languages" [value]="language.value">{{
+                language.context | translate
+            }}</mat-option>
+        </mat-select>
+    </div>
+
     <div class="user-log-container">
         <p *ngIf="isAthorized" class="user-nickname"><mat-icon>account_circle</mat-icon>{{ user }}</p>
         <button mat-flat-button color="primary" (click)="onLogoff()">
             <mat-icon>arrow_right_alt</mat-icon>
-            Log off
+            {{ "HEADER.LOGOFF" | translate }}
         </button>
     </div>
 </div>
+
 <div class="bread-crumbs" *ngIf="link">
     <a [routerLink]="['/courses-page']">Courses{{ link ? "/" : "" }}{{ link }}</a>
 </div>

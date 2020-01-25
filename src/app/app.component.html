@@ -1,10 +1,11 @@
 <app-loader></app-loader>
 
 <app-header
-    (logout)="onLogout()"
     [user]="user$ | async"
     [isAthorized]="isAuthorized$ | async"
     [link]="breadCrumbsLink$ | async"
+    (logout)="onLogout()"
+    (selectLanguage)="onSelect($event)"
 ></app-header>
 
 <div class="content">
